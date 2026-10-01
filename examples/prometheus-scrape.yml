@@ -1,0 +1,13 @@
+# Add these entries under scrape_configs in prometheus.yml. Replace example hosts and token paths.
+- job_name: ollama
+  static_configs:
+    - targets: [ollama-exporter.example:9400]
+      labels: {instance: ollama}
+- job_name: ollama-inference
+  static_configs:
+    - targets: [ollama-proxy.example:9402]
+      labels: {instance: ollama}
+- job_name: node-exporter
+  static_configs:
+    - targets: [ollama-host.example:9100]
+      labels: {instance: ollama}

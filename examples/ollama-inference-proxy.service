@@ -1,0 +1,25 @@
+[Unit]
+Description=Streaming native Ollama and OpenAI-compatible inference metrics proxy
+After=network-online.target ollama.service
+Wants=network-online.target
+
+[Service]
+EnvironmentFile=-/etc/default/ollama-monitoring
+DynamicUser=yes
+ExecStart=/usr/bin/python3 /opt/ollama-monitoring/src/inference_proxy.py
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=75
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+CapabilityBoundingSet=
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,23 @@
+[Unit]
+Description=Read-only Ollama model-state exporter
+After=network-online.target ollama.service
+Wants=network-online.target
+
+[Service]
+DynamicUser=yes
+ExecStart=/usr/local/bin/ollama-exporter --config /etc/ollama-exporter/ollama-exporter.yml
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+CapabilityBoundingSet=
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,17 @@
+[Unit]
+Description=Read-only Ollama inventory textfile collection
+After=ollama.service
+
+[Service]
+EnvironmentFile=-/etc/default/ollama-monitoring
+Type=oneshot
+User=prometheus
+ExecStart=/usr/bin/python3 /opt/ollama-monitoring/src/inventory.py
+NoNewPrivileges=yes
+ProtectSystem=strict
+ReadWritePaths=/var/lib/node_exporter/textfile_collector
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+CapabilityBoundingSet=

@@ -1,0 +1,8 @@
+ollama_url: http://127.0.0.1:11434
+listen_addr: "127.0.0.1:9400"
+poll_interval: "15s"
+log_level: info
+proxy:
+  enabled: false
+gpu:
+  enabled: false

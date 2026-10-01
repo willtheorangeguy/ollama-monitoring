@@ -1,4 +1,4 @@
-# ollama-monitoring — Quickstart
+# Getting started
 
 ## Prerequisites
 
@@ -13,4 +13,4 @@ The example Prometheus scrape job names are `ollama`, `ollama-inference`, `node-
 ## Confirm data
 
 In Prometheus, check `up{job="ollama"}`, `up{job="ollama-inference"}`, `up{job="node-exporter"}` and inspect a panel query in Grafana.
-For missing data, see [troubleshooting](./troubleshooting.md).
+For missing data, see [Troubleshooting](troubleshooting.md).

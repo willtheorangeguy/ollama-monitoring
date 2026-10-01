@@ -1,17 +1,17 @@
-# ollama-monitoring — Dashboard Usage
+# Dashboard usage
 
-Import the JSON files using **Grafana → Dashboards → New → Import**. Set the data source and variables listed in [configuration](./configuration.md).
+Import the JSON files using **Grafana → Dashboards → New → Import**. Set the data source and variables listed in [configuration](configuration.md).
 
 ## Ollama Models & Inference
 
-Source: [ollama-inference-25086.json](../dashboards/ollama-inference-25086.json). Refresh: `30s`.
+Source: [`dashboards/ollama-inference-25086.json`](https://github.com/willtheorangeguy/ollama-monitoring/blob/HEAD/dashboards/ollama-inference-25086.json). Refresh: `30s`.
 
 <!-- Screenshot: after adding ollama-inference-25086.png to .github/icons/ollama-monitoring/, replace this comment with ![Ollama Models & Inference](https://raw.githubusercontent.com/willtheorangeguy/.github/main/icons/ollama-monitoring/ollama-inference-25086.png). -->
 
 ### Panels
 
 | Panel | Type | What it shows |
-|---|---|---|
+| --- | --- | --- |
 | Ollama Status | stat | See the query reference below. |
 | Loaded Models | stat | See the query reference below. |
 | Loaded Model VRAM (API Reported) | stat | See the query reference below. |

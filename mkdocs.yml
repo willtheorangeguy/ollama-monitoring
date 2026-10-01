@@ -1,0 +1,35 @@
+INHERIT: .mkdocs-shared/shared/mkdocs.base.yml
+
+site_name: Ollama Monitoring
+site_description: A streaming inference proxy, a Node Exporter inventory collector, an upstream model-state exporter configuration, and an adapted Grafana dashboard.
+site_author: willtheorangeguy
+site_url: https://williamvdg.me/ollama-monitoring/
+
+repo_url: https://github.com/willtheorangeguy/ollama-monitoring
+repo_name: willtheorangeguy/ollama-monitoring
+edit_uri: edit/main/docs/
+
+copyright: Copyright &copy; willtheorangeguy
+
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - Installation: installation.md
+  - Configuration: configuration.md
+  - Architecture: architecture.md
+  - API: api.md
+  - Development:
+      - Testing: testing.md
+      - CI/CD: ci-cd.md
+      - FAQ: faq.md
+      - Dashboard usage: usage.md
+      - Troubleshooting: troubleshooting.md
+      - Development guide: development.md
+  - About:
+      - License: license.md
+      - Contributing: https://github.com/willtheorangeguy/.github/blob/main/CONTRIBUTING.md
+      - Code of Conduct: https://github.com/willtheorangeguy/.github/blob/main/CODE_OF_CONDUCT.md
+      - Security: https://github.com/willtheorangeguy/.github/blob/main/SECURITY.md
+
+exclude_docs: |
+  docs.instructions.md

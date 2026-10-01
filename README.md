@@ -1,38 +1,55 @@
-# Ollama inference proxy, inventory collector, and adapted dashboard
+<h1 align="center">ollama-monitoring</h1>
+<h4 align="center">A streaming inference proxy, a Node Exporter inventory collector, an upstream model-state exporter configuration, and an adapted Grafana dashboard.</h4>
 
-Portable monitoring bundle with example configuration. Replace example addresses and token paths for your installation; no live credentials are included.
+<div align="center">
+  <img alt="GitHub Issues" src="https://img.shields.io/github/issues/willtheorangeguy/ollama-monitoring">
+  <img alt="GitHub Pull Requests" src="https://img.shields.io/github/issues-pr/willtheorangeguy/ollama-monitoring">
+  <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue">
+  <img alt="gitleaks workflow" src="https://github.com/willtheorangeguy/ollama-monitoring/actions/workflows/gitleaks.yml/badge.svg">
+  <img alt="testing workflow" src="https://github.com/willtheorangeguy/ollama-monitoring/actions/workflows/testing.yml/badge.svg">
+</div>
 
-## Requirements
+<p align="center">
+  <a href="#key-features">Key Features</a> •
+  <a href="#installation">Installation</a> •
+  <a href="#usage">Usage</a> •
+  <a href="#documentation">Documentation</a> •
+  <a href="#support">Support</a> •
+  <a href="#contributing">Contributing</a> •
+  <a href="#license">License</a>
+</p>
 
-Ollama, the upstream maravexa/ollama-exporter for model state, the included inference proxy, and Node Exporter's textfile collector for inventory.
+<!-- Screenshot: after adding ollama-monitoring/overview.png to .github/icons/, replace this comment with ![Dashboard overview](https://raw.githubusercontent.com/willtheorangeguy/.github/main/icons/ollama-monitoring/overview.png). -->
 
-## Dashboards
+A streaming inference proxy, a Node Exporter inventory collector, an upstream model-state exporter configuration, and an adapted Grafana dashboard.
 
-- `dashboards/ollama-inference-25086.json`
+## Key Features
 
-Import the JSON in Grafana using **Dashboards > New > Import**. Select your data source from the dashboard variable(s) at the top. Update the Prometheus job variables to match your `scrape_configs` job names; use the Instance selector when present. The dashboard's JSON is also suitable for file provisioning after you have selected or provisioned data source UIDs.
+- Streaming inference proxy with request and explicit usage metrics.
+- Installed and loaded model inventory from Ollama APIs.
+- Model state exporter and Node Exporter integration.
+- Adapted inference Grafana dashboard.
 
-Expected default job labels:
+## Installation
 
-- `ollama-inference-25086.json`: node-exporter, ollama, ollama-inference
+Ollama, Python packages in requirements.txt, Node Exporter textfile collector, maravexa/ollama-exporter, Prometheus and Grafana. Install requirements.txt. Copy examples/ollama-monitoring.env.example to /etc/default/ollama-monitoring, adjust example systemd unit paths and start the inference proxy. Enable examples/ollama-inventory.service and .timer with a writable textfile directory. Install the upstream model-state exporter separately, then adapt examples/prometheus-scrape.yml and import the dashboard. See [installation](docs/installation.md) for more detail.
 
-The dashboard adapts Grafana.com dashboard 25086 revision 1. Keep attribution and check its upstream license before publication. The upstream model-state exporter is a separate project; it is not copied here.
+## Usage
 
-## Monitoring code
+Import [ollama-inference-25086.json](dashboards/ollama-inference-25086.json) in Grafana using **Dashboards → New → Import**. Choose the data source and match the dashboard variables to your monitoring labels. See [dashboard usage](docs/usage.md).
 
-See the code and example configuration in this folder, if present. Keep API keys and metrics bearer tokens in local secret files or another secret manager; never commit them. Scrape examples use documentation addresses and must be edited for your network.
+## Documentation
 
-## Before publishing
+Full documentation lives in [docs/](docs/README.md): [Quickstart](docs/quickstart.md) · [Configuration](docs/configuration.md) · [Architecture](docs/architecture.md) · [Dashboard usage](docs/usage.md) · [Troubleshooting](docs/troubleshooting.md).
 
-Test against the application and Grafana versions you intend to support. Add a license you choose and check attribution for upstream components. No release or Grafana catalog upload has been performed.
+## Support
 
+Open a [GitHub Discussion](https://github.com/willtheorangeguy/ollama-monitoring/discussions/new) or file an [issue](https://github.com/willtheorangeguy/ollama-monitoring/issues/new/choose).
 
-## Run the collectors
+## Contributing
 
-Install the packages in `requirements.txt` for the original streaming proxy in `src/inference_proxy.py`. It forwards native Ollama and OpenAI-compatible streaming response bytes while counting only explicit usage. Set the bind and upstream addresses in `examples/ollama-monitoring.env.example`, copy it to `/etc/default/ollama-monitoring`, and adapt the example systemd unit paths to your installation. The proxy accepts client traffic on the configured proxy port and exposes metrics separately on the metrics port. Keep both on trusted interfaces.
+Contributions welcome. See the org-wide [Contributing Guide](https://github.com/willtheorangeguy/.github/blob/main/CONTRIBUTING.md) and [Code of Conduct](https://github.com/willtheorangeguy/.github/blob/main/CODE_OF_CONDUCT.md).
 
-`src/inventory.py` polls `/api/tags` and `/api/ps` and writes a Node Exporter textfile. Enable Node Exporter's textfile collector, set its output directory in `OLLAMA_INVENTORY_OUTPUT`, and run the provided oneshot/timer units with a user that can write there. The model-state exporter in `examples/ollama-exporter.yml` is upstream `maravexa/ollama-exporter`; obtain its binary separately. Scrape the model-state exporter as job `ollama`, the proxy as `ollama-inference`, and Node Exporter as `node-exporter`, or change the dashboard job variables.
+## License
 
-Run `python -m unittest discover -s src -p 'test_*.py'` before release. The adapted dashboard came from Grafana.com dashboard 25086 revision 1; preserve attribution and check its license.
-
-A sample `scrape_configs` fragment is in `examples/prometheus-scrape.yml`; replace the example hosts and token paths.
+MIT — see [LICENSE.md](LICENSE.md).
